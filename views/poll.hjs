@@ -1,0 +1,4 @@
+{{#polls}}
+<p>Poll title is {{title}} and poll creator is {{creator}}</p>
+</br>
+{{/polls}}

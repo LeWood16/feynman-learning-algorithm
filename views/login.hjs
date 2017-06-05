@@ -1,0 +1,11 @@
+<head>
+   <link href="stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+   <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+      <a href="/login/facebook" class="btn btn-info">Log In with Facebook</a>
+   </nav> 
+   
+   
+</body>
+</html>

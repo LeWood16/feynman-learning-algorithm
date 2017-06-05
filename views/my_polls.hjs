@@ -1,0 +1,17 @@
+<<<<<<< HEAD
+<h3>Polls</h3>
+{{ polls }} 
+=======
+<h3>All Polls Created by {{ user.displayName }}</h3>
+{{#polls}}
+<h3>Test Poll:</h3>
+<p>{{ polls.title }}</p>
+<h3>Options</h3>
+<p>{{ polls.options[0].option }}
+{{/polls}}
+
+{{^polls}}
+<h3>{{ user.displayName }} hasn't created any polls yet.</h3>
+{{/polls}}
+
+>>>>>>> mongo_client

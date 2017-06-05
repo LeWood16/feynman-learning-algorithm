@@ -1,0 +1,31 @@
+{
+  "name": "voting-app",
+  "version": "0.0.0",
+  "description": "Dynamic Web Application for FreeCodeCamp",
+  "repository": "https://github.com/LeWood16/fcc-voting-app",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "connect-ensure-login": "^0.1.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "express-session": "^1.15.3",
+    "hjs": "~0.0.6",
+    "hogan-express": "^0.5.2",
+    "mkdirp": "^0.5.1",
+    "mongo": "^0.1.0",
+    "mongodb": "^2.2.27",
+    "mongoose": "^4.10.2",
+    "morgan": "~1.8.1",
+    "mustache": "^2.3.0",
+    "nopt": "^4.0.1",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "serve-favicon": "~2.4.2"
+  }
+}
