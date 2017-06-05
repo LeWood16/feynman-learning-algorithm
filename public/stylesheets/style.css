@@ -51,3 +51,14 @@ a {
 .navbar-nav > li {
   list-style: none;
 }
+
+.center{
+  text-align: center;
+}
+
+.poll{
+  font-size: 2em;
+  list-style: none;
+}
+
+

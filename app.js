@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
-var hogan = require('hjs');
+var hogan = require('hogan.js');
 
 // Retrieve
 var MongoClient = require('mongodb').MongoClient;
@@ -72,14 +72,26 @@ var db;
 
 
 app.get('/', function(req, res, next) {
-  res.render('home', 
-    {
-      user: req.user,
-      partials: 
-    {
-      all_polls: 'all_polls',
-      navbar: 'navbar'
-    }
+  
+  // create polls collection as soon as first document is inserted
+  db.collection('polls', function(err, collection) {if (err) throw err});
+  
+  db.collection('polls').find({}).toArray(function(err, polls) {
+        
+    if (err) throw err;
+
+    res.render('home', 
+      {
+       user: req.user,
+       polls: polls,
+       partials: 
+       {
+          head: 'head',
+          navbar: 'navbar',
+       }
+      }
+    );
+        
   });
 });
 
@@ -99,43 +111,57 @@ app.get('/login/facebook/return',
     res.redirect('/');
   });
 
-/*
-app.get('/my_polls',
-  require('connect-ensure-login').ensureLoggedIn(),
-  function(req, res){
-    res.render('my_polls', 
-    {user: req.user });
-  });
-*/
-  
-  
 app.get('/all_polls', function(req, res, next) {
-  MongoClient.connect("mongodb://lewood:bearringoMaybeBeez?@ds139801.mlab.com:39801/lewood-fcc-voting-app", function(err, db) {  // CREATE MLAB DB FOR THIS PROJECT
-    if (!err) {
-      
+  
       // create polls collection as soon as first document is inserted
       db.collection('polls', function(err, collection) {if (err) throw err});
 
-      db.collection('polls').find({}, { _id: 0 }).toArray(function(err, polls) {
+      db.collection('polls').find({}).toArray(function(err, polls) {
         
         if (err) throw err;
-        
-        var template = hogan.compile('poll.hjs');
-        // so now, we can return all polls to the screen.
-        
-        var output = template.render(polls);
-        res.render(output);
-        /*
-        res.render('my_polls', 
-           {
+
+        res.render('all_polls', 
+        {
              user: req.user,
-             polls: polls[0]
-           }
+             polls: polls,
+             partials: 
+             {
+               head: 'head',
+               navbar: 'navbar',
+             }
+        }
         );
-        */
+        
       });
-    }
-  });
+});
+  
+  
+app.get('/my_polls', function(req, res, next) {
+  
+      // create polls collection as soon as first document is inserted
+      db.collection('polls', function(err, collection) {if (err) throw err});
+      
+      // store current user's id, then convert it to a number to use for db querying
+      var id = req.user.id;
+      id = +id;
+
+      db.collection('polls').find({creator: id}).toArray(function(err, polls) {
+        
+        if (err) throw err;
+
+        res.render('my_polls', 
+        {
+             user: req.user,
+             polls: polls,
+             partials: 
+             {
+               head: 'head',
+               navbar: 'navbar',
+             }
+        }
+        );
+        
+      });
 });
 
 app.get('/new_poll', function(req, res, next){
@@ -149,32 +175,44 @@ app.get('/new_poll', function(req, res, next){
   });
 });
 
-app.post('/new_poll', function(req, res, next){
-    var title = req.body.title;
-    var options = req.body.options;
-    createPoll(title, req.user.id, options);
-    res.render('home', 
-    {
+app.post('/new_poll', function(req, res, next) {
+  var title = req.body.title;
+  var options = req.body.options;
+  createPoll(title, req.user.id, options);
+
+  db.collection('polls').find({}).toArray(function(err, polls) {
+
+    if (err) throw err;
+
+    res.render('home', {
       user: req.user,
+      polls: polls,
       message: 'New poll created.',
-      partials: 
-    {
-      all_polls: 'all_polls',
-      navbar: 'navbar',
-    }
+      partials: {
+        head: 'head',
+        navbar: 'navbar'
+      }
+    });
   });
 });
 
+app.get('/poll', function(req, res, next){
+  
+  db.collection('polls').find({}).toArray(function(err, testPoll) {
 
+    if (err) throw err;
 
-/*
-app.get('/profile',
-  require('connect-ensure-login').ensureLoggedIn(),
-  function(req, res){
-    res.render('profile', 
-    {user: req.user });
+    res.render('poll', {
+      user: req.user,
+      poll: testPoll,
+      partials: {
+        head: 'head',
+        navbar: 'navbar'
+      }
+    });
   });
- */
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -193,18 +231,18 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-
 function createPoll(title, creator, options){
   
-  let mongoose = require('mongoose');
-  let schema = require('./schema');
+  var mongoose = require('mongoose');
+  var schema = require('./schema');
   
   // instantiate mongoose model inside function
-  let Poll = mongoose.model('Poll', schema, 'polls');
+  var Poll = mongoose.model('Poll', schema, 'polls');
   
   // turn options argument into an array, separated by newlines (non-inclusive)
   var lnRegExp = /\r?\n|\r/;
   options = options.split(lnRegExp);
+  
 
   // now we rebuild options into the proper schema format, like so:
   // {
@@ -220,26 +258,17 @@ function createPoll(title, creator, options){
   }
 
   // create poll instance to be inserted into collection
-  let poll = new Poll({
+  var poll = new Poll({
     title: title,
     creator: creator,
     options: optionsArr
   });
   
-  // Connect to the db
-  MongoClient.connect("mongodb://username:password@ds139801.mlab.com:39801/lewood-fcc-voting-app", function(err, db) {
-  if (!err) {
-       
     // create polls collection as soon as first document is inserted
     db.collection('polls', function(err, collection) {if (err) throw err});
 
     // insert poll instance into database, then close database
     db.collection('polls').insertOne(poll);
-    
-  }
-  });
 }
-
-
 
 module.exports = app;

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 module.exports = new mongoose.Schema({
-    title: {
+    title : {
         type: String,
         required: true
     },
@@ -11,12 +11,8 @@ module.exports = new mongoose.Schema({
     },
     options : [{ 
         option: {
-<<<<<<< HEAD
-            type: String
-=======
             type: String,
             required: true
->>>>>>> mongo_client
         },
         votes : {
             type: Number,

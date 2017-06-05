@@ -7,19 +7,19 @@ X - create template to create poll with
   X - include ways to insert all relevant poll values
   X - create post route on new_poll to insert poll into database
      - include:
-        -user id
-        -title
-        -all options (create an array, separated by newlines)
-        -votes for options will be instantiated to zero
+        X-user id
+        X-title
+        X-all options (create an array, separated by newlines)
+        X-votes for options will be instantiated to zero
         -way to create a new custom option
 X - create express route for poll creation
    - link route to template
    - link db with route
    - link schema with route
    
-- get all polls from current user
+X- get all polls from current user
 
-- get all polls in db, regardless of authentication
+X- get all polls in db, regardless of authentication
 
 - create template for single poll
    - create ability to vote on an option

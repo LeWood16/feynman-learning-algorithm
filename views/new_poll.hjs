@@ -10,7 +10,7 @@
 {{#user}}
 
 <form class="jumbotron container-fluid" method="post">
-<h1>New Poll</h1>
+<h1><strong>New Poll</strong></h1>
   <div class="form-group">
     <label for="exampleTextarea">Title</label>
     <input class="form-control" id="title" name="title" type="text" rows="1"></input>

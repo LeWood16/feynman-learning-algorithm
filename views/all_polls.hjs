@@ -1,10 +1,10 @@
 <h3>All Polls</h3>
-
-<ul>
-  <li>Test Poll One</li>
-  <li>Test Poll Two</li>
-  <li>Test Poll Three</li>
-  <li>Test Poll Four</li>
+{{#polls}}
+<ul class="center">
+<li class="poll">Title: {{ title }}</li>
 </ul>
+{{/polls}}
 
-{{ polls }} 
+{{^polls}}
+<h3>No polls have been created yet.</h3>
+{{/polls}}
