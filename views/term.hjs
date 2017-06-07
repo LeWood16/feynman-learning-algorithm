@@ -3,17 +3,17 @@
 {{>navbar}}
 <div class="container-fluid">
 
-<#poll>
-<p>Your poll loaded.</p>
-</poll>
+<#term>
+<p>Your term loaded.</p>
+</term>
 
 <#user>
 <p>Hello, {{ user.displayName }}.</p>
 </user>
 
-<^poll>
-<p>Your poll didn't load.</p>
-</poll>
+<^term>
+<p>Your term didn't load.</p>
+</term>
 
 </div>
 

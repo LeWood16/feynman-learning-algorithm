@@ -3,16 +3,16 @@
 {{>navbar}}
        
 <div class="container-fluid jumbotron">
-<h1 class="center"><strong>All Polls</strong></h1>
-{{#polls}}
+<h1 class="center"><strong>All Terms</strong></h1>
+{{#terms}}
 <ul class="list-group center">
-<li class="poll list-group-item">{{ title }}</li>
+<li class="poll list-group-item">{{ term }}</li>
 </ul>
-{{/polls}}
+{{/terms}}
 
-{{^polls}}
-<h3>No polls have been created yet.</h3>
-{{/polls}}
+{{^terms}}
+<h3>No terms have been created yet.</h3>
+{{/terms}}
 </div>
 
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>

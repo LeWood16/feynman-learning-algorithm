@@ -15,7 +15,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">Voting App</a>
+        <a class="navbar-brand" href="/">Feynweb Alpha (Vocab)</a>
         <p style="color:white">Hello, {{ user.displayName }}.</p>
 
       </div>
@@ -25,13 +25,13 @@
             <a class="btn nav-link" href="/">Home</a>
           </li>
           <li>
-            <a class="btn nav-link" href="/my_polls">My Polls</a>
+            <a class="btn nav-link" href="/my_terms">My Terms</a>
           </li>
           <li>
-            <a class="btn nav-link" href="/new_poll">New Poll</a>
+            <a class="btn nav-link" href="/new_term">New Term</a>
           </li>
           <li>
-            <a class="btn nav-link" href="/poll">Test Poll</a>
+            <a class="btn nav-link" href="/term">Test Term</a>
           </li>
         </ul>
       </div>

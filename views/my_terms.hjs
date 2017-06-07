@@ -2,10 +2,10 @@
 <body>
 {{>navbar}}
 <div class="container-fluid jumbotron">
-<h1 class="center"><strong>Your Polls</strong></h1>
+<h1 class="center"><strong>Your Terms</strong></h1>
 {{#polls}}
 <ul class="list-group center">
-<li class="poll list-group-item">{{ title }}</li>
+<li class="term list-group-item">{{ term }}</li>
 </ul>
 {{/polls}}
 

@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
-var hogan = require('hogan.js');
+var hogan = require('hjs');
 
 // Retrieve
 var MongoClient = require('mongodb').MongoClient;
@@ -15,9 +15,9 @@ var MongoClient = require('mongodb').MongoClient;
 
 // Configure the Facebook strategy for use by Passport.
 passport.use(new Strategy({
-    clientID: '105670326652055',
-    clientSecret: 'ca1fbf5443127b7187936d47dd0f2ee0',
-    callbackURL: 'https://voting-app-lift-it-luke.c9users.io' + '/login/facebook/return'
+    clientID: '135547947002897',
+    clientSecret: '34c0ffb0514f2a7f3479f7cc2663d9bc',
+    callbackURL: 'https://feynman-web-app-lift-it-luke.c9users.io' + '/login/facebook/return'
   },
   function(accessToken, refreshToken, profile, cb) {
     return cb(null, profile);
@@ -64,7 +64,7 @@ var MongoClient = require('mongodb').MongoClient;
 var db;
 
 // initialize connection once
-  MongoClient.connect("mongodb://username:password@ds139801.mlab.com:39801/lewood-fcc-voting-app", function(err, database) {
+  MongoClient.connect("mongodb://username:password@ds133281.mlab.com:33281/feynweb", function(err, database) {
   if (err) throw err;
   db = database;
 });
@@ -73,17 +73,17 @@ var db;
 
 app.get('/', function(req, res, next) {
   
-  // create polls collection as soon as first document is inserted
-  db.collection('polls', function(err, collection) {if (err) throw err});
+  // create terms collection as soon as first document is inserted
+  db.collection('vocab', function(err, collection) {if (err) throw err});
   
-  db.collection('polls').find({}).toArray(function(err, polls) {
+  db.collection('vocab').find({}).toArray(function(err, terms) {
         
     if (err) throw err;
 
     res.render('home', 
       {
        user: req.user,
-       polls: polls,
+       terms: terms,
        partials: 
        {
           head: 'head',
@@ -111,19 +111,19 @@ app.get('/login/facebook/return',
     res.redirect('/');
   });
 
-app.get('/all_polls', function(req, res, next) {
+app.get('/all_terms', function(req, res, next) {
   
-      // create polls collection as soon as first document is inserted
-      db.collection('polls', function(err, collection) {if (err) throw err});
+      // create terms collection as soon as first document is inserted
+      db.collection('vocab', function(err, collection) {if (err) throw err});
 
-      db.collection('polls').find({}).toArray(function(err, polls) {
+      db.collection('vocab').find({}).toArray(function(err, terms) {
         
         if (err) throw err;
 
-        res.render('all_polls', 
+        res.render('all_terms', 
         {
              user: req.user,
-             polls: polls,
+             terms: terms,
              partials: 
              {
                head: 'head',
@@ -136,23 +136,23 @@ app.get('/all_polls', function(req, res, next) {
 });
   
   
-app.get('/my_polls', function(req, res, next) {
+app.get('/my_terms', function(req, res, next) {
   
-      // create polls collection as soon as first document is inserted
-      db.collection('polls', function(err, collection) {if (err) throw err});
+      // create terms collection as soon as first document is inserted
+      db.collection('vocab', function(err, collection) {if (err) throw err});
       
       // store current user's id, then convert it to a number to use for db querying
       var id = req.user.id;
       id = +id;
 
-      db.collection('polls').find({creator: id}).toArray(function(err, polls) {
+      db.collection('vocab').find({}).toArray(function(err, terms) {
         
         if (err) throw err;
 
-        res.render('my_polls', 
+        res.render('my_terms', 
         {
              user: req.user,
-             polls: polls,
+             terms: terms,
              partials: 
              {
                head: 'head',
@@ -164,30 +164,32 @@ app.get('/my_polls', function(req, res, next) {
       });
 });
 
-app.get('/new_poll', function(req, res, next){
-    res.render('new_poll', 
+app.get('/new_term', function(req, res, next){
+    res.render('new_term', 
     {
       user: req.user,
       partials: 
     {
+        header: 'header',
         navbar: 'navbar'  
     }
   });
 });
 
-app.post('/new_poll', function(req, res, next) {
-  var title = req.body.title;
-  var options = req.body.options;
-  createPoll(title, req.user.id, options);
+app.post('/new_term', function(req, res, next) {
+  var term = req.body.term;
+  var definition = req.body.definition;
+  var examples = req.body.examples;
+  createTerm(term, definition, examples);
 
-  db.collection('polls').find({}).toArray(function(err, polls) {
+  db.collection('vocab').find({}).toArray(function(err, terms) {
 
     if (err) throw err;
 
     res.render('home', {
       user: req.user,
-      polls: polls,
-      message: 'New poll created.',
+      terms: terms,
+      message: 'New term created.',
       partials: {
         head: 'head',
         navbar: 'navbar'
@@ -196,15 +198,15 @@ app.post('/new_poll', function(req, res, next) {
   });
 });
 
-app.get('/poll', function(req, res, next){
+app.get('/term', function(req, res, next){
   
-  db.collection('polls').find({}).toArray(function(err, testPoll) {
+  db.collection('vocab').find({}).toArray(function(err, testterm) {
 
     if (err) throw err;
 
-    res.render('poll', {
+    res.render('term', {
       user: req.user,
-      poll: testPoll,
+      term: testterm,
       partials: {
         head: 'head',
         navbar: 'navbar'
@@ -231,17 +233,17 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-function createPoll(title, creator, options){
+function createTerm(term, definition, examples){
   
   var mongoose = require('mongoose');
   var schema = require('./schema');
   
   // instantiate mongoose model inside function
-  var Poll = mongoose.model('Poll', schema, 'polls');
+  var Term = mongoose.model('Term', schema, 'terms');
   
-  // turn options argument into an array, separated by newlines (non-inclusive)
+  // turn examples argument into an array, separated by newlines (non-inclusive)
   var lnRegExp = /\r?\n|\r/;
-  options = options.split(lnRegExp);
+  examples = examples.split(lnRegExp);
   
 
   // now we rebuild options into the proper schema format, like so:
@@ -249,26 +251,25 @@ function createPoll(title, creator, options){
   //   "option": option[i],
   //   "votes": 0
   // }
-  var optionsArr = [];
-  for (let i = 0; i < options.length; i++){
+  var examplesArr = [];
+  for (let i = 0; i < examples.length; i++){
     let obj = {};
-    obj.option = options[i];
-    obj.votes = 0;
-    optionsArr.push(obj);
+    obj.examples = examples[i];
+    examplesArr.push(obj);
   }
 
-  // create poll instance to be inserted into collection
-  var poll = new Poll({
-    title: title,
-    creator: creator,
-    options: optionsArr
+  // create term instance to be inserted into collection
+  var term = new Term({
+    term: term,
+    definition: definition,
+    examples: examplesArr
   });
   
-    // create polls collection as soon as first document is inserted
-    db.collection('polls', function(err, collection) {if (err) throw err});
+    // create terms collection as soon as first document is inserted
+    db.collection('vocab', function(err, collection) {if (err) throw err});
 
-    // insert poll instance into database, then close database
-    db.collection('polls').insertOne(poll);
+    // insert term instance into database, then close database
+    db.collection('vocab').insertOne(term);
 }
 
 module.exports = app;

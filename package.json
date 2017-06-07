@@ -17,6 +17,7 @@
     "express-session": "^1.15.3",
     "hjs": "~0.0.6",
     "hogan-express": "^0.5.2",
+    "http": "0.0.0",
     "mkdirp": "^0.5.1",
     "mongo": "^0.1.0",
     "mongodb": "^2.2.27",

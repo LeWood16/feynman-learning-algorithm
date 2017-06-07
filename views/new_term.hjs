@@ -10,14 +10,18 @@
 {{#user}}
 
 <form class="jumbotron container-fluid" method="post">
-<h1><strong>New Poll</strong></h1>
+<h1><strong>New Term</strong></h1>
   <div class="form-group">
-    <label for="exampleTextarea">Title</label>
-    <input class="form-control" id="title" name="title" type="text" rows="1"></input>
+    <label for="exampleTextarea">Term</label>
+    <input class="form-control" id="term" name="term" type="text" rows="1"></input>
   </div>
   <div class="form-group">
-    <label for="exampleTextarea">Options (separated by line)</label>
-    <textarea class="form-control" id="options" name="options" rows="3"></textarea>
+    <label for="exampleTextarea">Definition</label>
+    <textarea class="form-control" id="definition" name="definition" type="definition" rows="5"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleTextarea">Examples (separated by line)</label>
+    <textarea class="form-control" id="examples" name="examples" rows="5"></textarea>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

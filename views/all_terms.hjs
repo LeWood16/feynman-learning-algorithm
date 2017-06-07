@@ -1,0 +1,10 @@
+<h3>All Terms</h3>
+{{#terms}}
+<ul class="center">
+<li class="term">Term: {{ Term }}</li>
+</ul>
+{{/terms}}
+
+{{^terms}}
+<h3>No terms have been created yet.</h3>
+{{/terms}}
