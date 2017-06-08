@@ -1,30 +1,38 @@
-X - Set up a template to create a poll document in the polls collection
+Fixes:
+- put routes in "routes" directory, rather than having one big
+monolithic express app
 
-X - clean up hogan templates, make more modular
 
-X - create collection for poll storage
-X - create template to create poll with
-  X - include ways to insert all relevant poll values
-  X - create post route on new_poll to insert poll into database
-     - include:
-        X-user id
-        X-title
-        X-all options (create an array, separated by newlines)
-        X-votes for options will be instantiated to zero
-        -way to create a new custom option
-X - create express route for poll creation
-   - link route to template
-   - link db with route
-   - link schema with route
-   
-X- get all polls from current user
 
-X- get all polls in db, regardless of authentication
 
-- create template for single poll
-   - create ability to vote on an option
-      - can only vote once per poll per person
-         - log user id
-         - log vote by incrementing option's vote prop by 1
-         
+Features:
 
+
+
+- able to click on a term, and be taken to a page with options for 
+that term
+  - edit
+  - delete
+  - change "due" interval (default is one week)
+- edit current terms
+- track when you created terms
+- track when you last edited terms
+- create a schema property that gets populated when you last
+edited a term, and use that property (probably another dateobject)
+to check if a term is "due"
+  - a term is "due" if the due property is after the current date
+- set an "inbox" that fills with a list of words once 
+
+
+(you can review a term at any time, not just when it comes due;
+the due time will update for a term whenever you review it)
+1. you add a term (term, definition, examples) to the db
+2. that term is "due" 7 days after it's created
+3. after the "due" time, the term shows up in your "due" section
+   for review
+4. you review it
+   a. you enter the definition, and examples
+   b. you hit "update," and the old and new entries are shown
+      side-by-side
+   c. you click which entry to keep, and the other is discarded
+   d. the "due" time is reset

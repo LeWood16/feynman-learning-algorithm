@@ -33,6 +33,9 @@
           <li>
             <a class="btn nav-link" href="/term">Test Term</a>
           </li>
+          <li>
+            <a class="btn nav-link" href="/term">Due Terms</a>
+          </li>
         </ul>
       </div>
     </div>

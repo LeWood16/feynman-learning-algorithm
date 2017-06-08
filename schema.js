@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 
 module.exports = new mongoose.Schema({
+    creator : {
+        type: Number,
+        required: true
+    },
     term : {
         type: String,
         required: true
@@ -9,9 +13,11 @@ module.exports = new mongoose.Schema({
         type: String,
         required: true
     },
-    examples : 
-    [{
-        type: String
+    examples : [{
+        example : {
+            type: String,
+            required: true
+        }
     }]
    
 });

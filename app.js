@@ -145,7 +145,7 @@ app.get('/my_terms', function(req, res, next) {
       var id = req.user.id;
       id = +id;
 
-      db.collection('vocab').find({}).toArray(function(err, terms) {
+      db.collection('vocab').find({creator: id}).toArray(function(err, terms) {
         
         if (err) throw err;
 
@@ -180,7 +180,8 @@ app.post('/new_term', function(req, res, next) {
   var term = req.body.term;
   var definition = req.body.definition;
   var examples = req.body.examples;
-  createTerm(term, definition, examples);
+  var creator = req.user.id;
+  createTerm(creator, term, definition, examples);
 
   db.collection('vocab').find({}).toArray(function(err, terms) {
 
@@ -200,13 +201,13 @@ app.post('/new_term', function(req, res, next) {
 
 app.get('/term', function(req, res, next){
   
-  db.collection('vocab').find({}).toArray(function(err, testterm) {
+  db.collection('vocab').find({term: "meme"}).toArray(function(err, term) {
 
     if (err) throw err;
 
     res.render('term', {
       user: req.user,
-      term: testterm,
+      term: term,
       partials: {
         head: 'head',
         navbar: 'navbar'
@@ -233,7 +234,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-function createTerm(term, definition, examples){
+function createTerm(creator, term, definition, examples){
   
   var mongoose = require('mongoose');
   var schema = require('./schema');
@@ -254,12 +255,13 @@ function createTerm(term, definition, examples){
   var examplesArr = [];
   for (let i = 0; i < examples.length; i++){
     let obj = {};
-    obj.examples = examples[i];
+    obj.example = examples[i];
     examplesArr.push(obj);
   }
 
   // create term instance to be inserted into collection
   var term = new Term({
+    creator: creator,
     term: term,
     definition: definition,
     examples: examplesArr

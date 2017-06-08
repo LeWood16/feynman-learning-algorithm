@@ -3,11 +3,11 @@
 {{>navbar}}
 <div class="container-fluid jumbotron">
 <h1 class="center"><strong>Your Terms</strong></h1>
-{{#polls}}
+{{#terms}}
 <ul class="list-group center">
-<li class="term list-group-item">{{ term }}</li>
+<li class="term list-group-item"><a href="/term">{{ term }}</a></li>
 </ul>
-{{/polls}}
+{{/terms}}
 
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
