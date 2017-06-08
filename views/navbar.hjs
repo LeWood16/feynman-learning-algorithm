@@ -31,10 +31,10 @@
             <a class="btn nav-link" href="/new_term">New Term</a>
           </li>
           <li>
-            <a class="btn nav-link" href="/term">Test Term</a>
+            <a class="btn nav-link" href="/single_term">Test Term</a>
           </li>
           <li>
-            <a class="btn nav-link" href="/term">Due Terms</a>
+            <a class="btn nav-link" href="/single_term">Due Terms</a>
           </li>
         </ul>
       </div>

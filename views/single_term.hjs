@@ -3,17 +3,17 @@
 {{>navbar}}
 <div class="container-fluid">
 
-{{ #terms }}
+{{ #single }}
 <p>Your term loaded. It's {{ term }}</p>
-{{/terms}}
+{{/single}}
 
 {{#user}}
 <p>Hello, {{ user.displayName }}.</p>
 </user>
 
-{{^terms}}
+{{ ^single }}
 <p>Your term didn't load.</p>
-{{/terms}}
+{{/single}}
 
 </div>
 

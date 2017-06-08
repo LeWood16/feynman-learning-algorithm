@@ -199,15 +199,15 @@ app.post('/new_term', function(req, res, next) {
   });
 });
 
-app.get('/term', function(req, res, next){
+app.get('/single_term', function(req, res, next){
   
-  db.collection('vocab').find({term: "meme"}).toArray(function(err, term) {
+  db.collection('vocab').find({term: "meme"}).toArray(function(err, single) {
 
     if (err) throw err;
 
-    res.render('term', {
+    res.render('single_term', {
       user: req.user,
-      term: term,
+      single: single,
       partials: {
         head: 'head',
         navbar: 'navbar'
