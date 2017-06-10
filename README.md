@@ -1,12 +1,26 @@
-# Feynman Web [FeynWeb] (Retain What You Learn)
+# Feynweb [Feynman Web] Retain What You Learn.
 ### Algorithm for Learning Faster and More Comprehensively
 
-Typically when we learn a new language, new concept, new skill, or even a new word, we tend to lose that knowledge to some degree if we don't keep up on it.  Cramming all night for an exam may get you a good grade, but without using that knowledge regularly after that exam, it's clear to your brain that it just isn't important anymore.  That's because our brains are amazingly efficient, and only keep what is "necessary."  If we don't use it, we lose it.
+There are a LOT of things to learn if you're a developer.  Sometimes when you go off and learn something new, you leave some things unused and they get "rusty," or worse, forgotten entirely.  That's where Feynweb comes in.
 
-This usually isn't a problem if we use what we learn on a regular basis.  Neural pathways stay strong, and only get stronger with time and contant use.  In the case of software developers, the knowledge and skillset needed to stay on the cutting edge keeps growing, shifting and evolving every day.  The next logical step is to figure out a simple, efficient way to use every piece of important knowledge you learn on a regular basis, to avoid losing what you learn.
+Feynweb uses a simple algorithm to keep the rust off what you learn.  For each node, each "thing," Feynweb asks you to briefly (and simply!) explain:
+1. What it is
+2. What it's used for, or how it fits into the larger picture
+3. What are at least three practical examples of it in use.
 
-Feyman Network is my first attempt at this algorithm.
+Once you feel you can answer all three of those questions easily, you know the node!  Feynweb then keeps track of when you've proven that you know the node, and reports back when a certain amount of time has passed (if it's your first answer, it will report back the next day; then once a week after that; then once a month after that.)
 
+### FAQ
+
+##### What happens if I can't explain the concept in 300 characters or less?
+
+Try dividing the concept into smaller pieces, and then explaining those "sub-concepts."  After you've explained the sub-concepts, you can then use them to explain the larger "parent concept." For example, **closures** have notoriously been a difficult concept for JavaScript newcomers to grasp.  I'm going to give a shameless plug from Kyle Simpson's [*You Don't Know JS*](https://github.com/getify/You-Dont-Know-JS) series for our definition; I've yet to come across an explanation that better meets our criteria of **simple and concise**:
+
+> Closure is when a function is able to remember and access its lexical scope even when that function is executing outside its lexical scope.
+
+To understand this simple definition, we need to understand **executing functions** and **lexical scope**.  To understand these two sub-concepts, we need to understand **functions** themselves, as well as **scope**. 
+
+You're using concepts you already know as pieces to explain bigger, seemingly more complicated concepts. You're using abstraction, just like a program! Essentially we're saying "to understand [parent concept], you first need to understand these X [child concepts]."
 
 ## User Stories
 - users can log in with Facebook, Twitter, Github, or Google
