@@ -200,14 +200,22 @@ app.post('/new_term', function(req, res, next) {
 });
 
 app.get('/single_term', function(req, res, next){
-  
-  db.collection('vocab').find({term: "meme"}).toArray(function(err, single) {
+
+    // create terms collection as soon as first document is inserted
+    db.collection('vocab', function(err, collection) {if (err) throw err});
+      
+    // store current user's id, then convert it to a number to use for db querying
+    var id = req.user.id;
+    id = +id;
+
+    db.collection('vocab').find({term: "meme"}).toArray(function(err, term) {
+   
 
     if (err) throw err;
 
     res.render('single_term', {
       user: req.user,
-      single: single,
+      single: term,
       partials: {
         head: 'head',
         navbar: 'navbar'

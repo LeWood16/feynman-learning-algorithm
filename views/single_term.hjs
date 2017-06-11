@@ -4,7 +4,7 @@
 <div class="container-fluid">
 
 {{ #single }}
-<p>Your term loaded. It's {{ term }}</p>
+<p>Your term loaded.</p>
 {{/single}}
 
 {{#user}}

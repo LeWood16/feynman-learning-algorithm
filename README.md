@@ -3,7 +3,7 @@
 
 There are a LOT of things to learn if you're a developer.  Sometimes when you go off and learn something new, you leave some things unused and they get "rusty," or worse, forgotten entirely.  That's where Feynweb comes in.
 
-Feynweb uses a simple algorithm to keep the rust off what you learn.  For each node, each "thing," Feynweb asks you to briefly (and simply!) explain:
+Feynweb uses a simple algorithm to keep the rust off what you learn.  For each "node," Feynweb asks you to simply (and briefly!) explain:
 1. What it is
 2. What it's used for, or how it fits into the larger picture
 3. What are at least three practical examples of it in use.
@@ -18,9 +18,13 @@ Try dividing the concept into smaller pieces, and then explaining those "sub-con
 
 > Closure is when a function is able to remember and access its lexical scope even when that function is executing outside its lexical scope.
 
-To understand this simple definition, we need to understand **executing functions** and **lexical scope**.  To understand these two sub-concepts, we need to understand **functions** themselves, as well as **scope**. 
+To understand this, we need to understand **executing functions** and **lexical scope**.  To understand these two sub-concepts, we need to understand **functions** themselves, as well as **scope**. 
 
 You're using concepts you already know as pieces to explain bigger, seemingly more complicated concepts. You're using abstraction, just like a program! Essentially we're saying "to understand [parent concept], you first need to understand these X [child concepts]."
+
+
+### gamification idea (you gather points/rep by knowing nodes, which unlock higher up nodes; bonus points for using the titles of already known nodes to explain a node).
+
 
 ## User Stories
 - users can log in with Facebook, Twitter, Github, or Google
