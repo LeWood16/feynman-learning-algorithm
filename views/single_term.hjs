@@ -1,23 +1,31 @@
 {{>head}}
 <body>
 {{>navbar}}
-<div class="container-fluid">
+<div class="container-fluid jumbotron">
+<h1 class="center"><strong>Your Term</strong></h1>
+{{#terms}}
+<ul class="list-group center">
+  <li class="term list-group-item">
+  
+  <h3>Term: {{ term }}</h3>
+  <h3>Definition: {{ definition }}</h3>
 
-{{ #single }}
-<p>Your term loaded. It's {{ term }}</p>
-{{/single}}
+  </li>
+</ul>
 
-{{#user}}
-<p>Hello, {{ user.displayName }}.</p>
-</user>
+{{#examplesArr}}
+<ul class="list-group center">
+  <li class="term list-group-item">
+  
+    <h3>Examples: {{ examples }}</h3>
+  
+  </li>
+</ul>
+{{/examplesArr}}
 
-{{ ^single }}
-<p>Your term didn't load.</p>
-{{/single}}
+{{/terms}}
 
 </div>
-
-
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 </body>
