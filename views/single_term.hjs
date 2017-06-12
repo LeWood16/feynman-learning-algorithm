@@ -2,30 +2,52 @@
 <body>
 {{>navbar}}
 <div class="container-fluid jumbotron">
-<h1 class="center"><strong>Your Term</strong></h1>
 {{#terms}}
-<ul class="list-group center">
+<ul class="list-group">
   <li class="term list-group-item">
   
-  <h3>Term: {{ term }}</h3>
-  <h3>Definition: {{ definition }}</h3>
+  <h3 class="center"><strong>{{ term }}</strong></h3>
+  <h3><strong>Definition:</strong> {{ definition }}</h3>
+  <h3><strong>Examples:</strong> 
+  
+  {{#examples}}
+  <p>{{ example }}</p>
+  {{/examples}}
+  </h3>
 
   </li>
+  <button id="edit" class="btn btn-success">Edit</button>
+  <form class="jumbotron container-fluid hidden" method="post">
+  <div class="form-group">
+    <label for="exampleTextarea">Term</label>
+    <input class="form-control" id="term" name="term" type="text" rows="1" value={{term}}></input>
+  </div>
+  <div class="form-group">
+    <label for="exampleTextarea">Definition</label>
+    <textarea class="form-control" id="definition" name="definition" type="text" rows="5">{{definition}}</textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleTextarea">Examples (separated by line)</label>
+    <textarea class="form-control" id="examples" name="examples" rows="5">
+    {{#examples}}
+    {{example}}
+    {{/examples}}
+    </textarea>
+  </div>
+  <button type="submit" class="btn btn-success">Update</button>
+</form>
 </ul>
-
-{{#examplesArr}}
-<ul class="list-group center">
-  <li class="term list-group-item">
-  
-    <h3>Examples: {{ examples }}</h3>
-  
-  </li>
-</ul>
-{{/examplesArr}}
 
 {{/terms}}
 
+{{^terms}}
+<p>your term didn't load.</p>
+{{/terms}}
+
+
 </div>
+<script>
+</script>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 </body>

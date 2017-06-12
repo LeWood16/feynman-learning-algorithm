@@ -4,11 +4,12 @@
        
 <div class="container-fluid jumbotron">
 <h1 class="center"><strong>All Terms</strong></h1>
-{{#terms}}
 <ul class="list-group center">
-<li class="poll list-group-item">{{ term }}</li>
-</ul>
+{{#terms}}
+<a class="poll list-group-item col-xs-12 col-sm-6" href=/{{ term }}> <li class="term">{{ term }}</li></a>
 {{/terms}}
+</ul>
+
 
 {{^terms}}
 <h3>No terms have been created yet.</h3>

@@ -61,4 +61,11 @@ a {
   list-style: none;
 }
 
+.hidden{
+  display: none;
+}
+
+#edit, #cancel{
+  float: right;
+}
 

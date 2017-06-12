@@ -199,19 +199,11 @@ app.post('/new_term', function(req, res, next) {
   });
 });
 
-app.get('/single_term', function(req, res, next){
- 
-      // create terms collection as soon as first document is inserted
-      db.collection('vocab', function(err, collection) {if (err) throw err});
-      
-      // store current user's id, then convert it to a number to use for db querying
-      var id = req.user.id;
-      id = +id;
+app.get('/:term', function(req, res, next){
 
-      db.collection('vocab').find({term: "meme"}).toArray(function(err, terms) {
+      db.collection('vocab').find({term: req.params.term}).toArray(function(err, terms) {
         
         if (err) throw err;
-
 
         res.render('single_term', 
         {
