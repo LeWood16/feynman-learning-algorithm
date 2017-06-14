@@ -2,6 +2,13 @@ Fixes:
 - put routes in "routes" directory, rather than having one big
 monolithic express app
 
+- updateTerm is an exact copy of createTerm, make it into a unique function:
+   - get and store all the old values of the term by querying the database
+   - use the old values to find the _id value of that term
+   - using the _id, update all the values with the new values, leaving the _id intact
+   - push the changes to the database
+   - reload the page (or at least the divs on the page that changed)
+
 
 
 

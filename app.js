@@ -221,6 +221,31 @@ app.get('/:term', function(req, res, next){
       });
 });
 
+app.post('/:term', function(req, res, next){
+  
+  db.collection('vocab').update({term:req.params.term}, {term:req.params.term, definition:req.params.definition});
+
+
+      db.collection('vocab').find({term: req.params.term}).toArray(function(err, terms) {
+        
+        if (err) throw err;
+
+        res.render('single_term', 
+        {
+             user: req.user,
+             terms: terms,
+             examplesArr: terms.examples,
+             partials: 
+             {
+               head: 'head',
+               navbar: 'navbar',
+             }
+        }
+        );
+        
+      });
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -276,6 +301,48 @@ function createTerm(creator, term, definition, examples){
     db.collection('vocab', function(err, collection) {if (err) throw err});
 
     // insert term instance into database, then close database
+    db.collection('vocab').insertOne(term);
+}
+
+function updateTerm(creator, term, definition, examples, id){
+  
+  var mongoose = require('mongoose');
+  var schema = require('./schema');
+  
+  // instantiate mongoose model inside function
+  var Term = mongoose.model('Term', schema, 'terms');
+  
+  // turn examples argument into an array, separated by newlines (non-inclusive)
+  var lnRegExp = /\r?\n|\r/;
+  examples = examples.split(lnRegExp);
+  
+
+  // now we rebuild options into the proper schema format, like so:
+  // {
+  //   "option": option[i],
+  //   "votes": 0
+  // }
+  var examplesArr = [];
+  for (let i = 0; i < examples.length; i++){
+    let obj = {};
+    obj.example = examples[i];
+    examplesArr.push(obj);
+  }
+
+  // create term instance to be inserted into collection
+  var term = new Term({
+    creator: creator,
+    term: term,
+    definition: definition,
+    examples: examplesArr
+  });
+  
+    // create terms collection as soon as first document is inserted
+    db.collection('vocab', function(err, collection) {if (err) throw err});
+
+    // find this term's _id value
+
+    // update term using term's _id value, then close database
     db.collection('vocab').insertOne(term);
 }
 
