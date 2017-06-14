@@ -17,7 +17,7 @@
 
   </li>
   <button id="edit" class="btn btn-success">Edit</button>
-  <form class="jumbotron container-fluid hidden" method="post">
+  <form class="jumbotron container-fluid" method="post">
   <div class="form-group">
     <label for="exampleTextarea">Term</label>
     <input class="form-control" id="term" name="term" type="text" rows="1" value={{term}}></input>
