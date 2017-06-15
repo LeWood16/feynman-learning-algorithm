@@ -223,8 +223,14 @@ app.get('/:term', function(req, res, next){
 
 app.post('/:term', function(req, res, next){
   
-  db.collection('vocab').update({term:req.params.term}, {term:req.params.term, definition:req.params.definition});
-
+  db.collection('vocab').find({term: req.params.term}).toArray(function(err, terms) {
+    if (err) throw err;
+    console.log("id:" + terms[0]._id);
+    // ID IS WORKING@!!!!@@!@!!!
+    
+  });
+  console.log("post");
+// LEFT OFF HERE
 
       db.collection('vocab').find({term: req.params.term}).toArray(function(err, terms) {
         
@@ -306,6 +312,10 @@ function createTerm(creator, term, definition, examples){
 
 function updateTerm(creator, term, definition, examples, id){
   
+  // db call to check if new params match the old params
+  
+  var oldTerm = db.collection('vocab').find({_id: id});
+  
   var mongoose = require('mongoose');
   var schema = require('./schema');
   
@@ -314,7 +324,8 @@ function updateTerm(creator, term, definition, examples, id){
   
   // turn examples argument into an array, separated by newlines (non-inclusive)
   var lnRegExp = /\r?\n|\r/;
-  examples = examples.split(lnRegExp);
+  oldExamples = oldExamples.split(lnRegExp);
+  newExamples = newExamples.split(lnRegExp);
   
 
   // now we rebuild options into the proper schema format, like so:
