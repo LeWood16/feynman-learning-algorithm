@@ -223,20 +223,22 @@ app.get('/:term', function(req, res, next){
 
 app.post('/:term', function(req, res, next){
   
+  // store _id in termID to use in updating the term's data
+  var termID;
   db.collection('vocab').find({term: req.params.term}).toArray(function(err, terms) {
     if (err) throw err;
+    termID = terms[0]._id;
     console.log("id:" + terms[0]._id);
-    // ID IS WORKING@!!!!@@!@!!!
-    
   });
-  console.log("post");
-// LEFT OFF HERE
+  
+    console.log("post");
 
-      db.collection('vocab').find({term: req.params.term}).toArray(function(err, terms) {
-        
-        if (err) throw err;
 
-        res.render('single_term', 
+  // update the term's data using the form elements
+
+  db.collection('vocab').find({_id: termID}).toArray(function(err, terms) {
+      if (err) throw err;
+      res.render('single_term', 
         {
              user: req.user,
              terms: terms,
@@ -250,6 +252,9 @@ app.post('/:term', function(req, res, next){
         );
         
       });
+
+  
+  updateTerm(req.user.id, req.params.term, req.params.definition, req.params.examples, termID);
 });
 
 // catch 404 and forward to error handler
@@ -314,18 +319,18 @@ function updateTerm(creator, term, definition, examples, id){
   
   // db call to check if new params match the old params
   
-  var oldTerm = db.collection('vocab').find({_id: id});
+  // var oldTerm = db.collection('vocab').find({_id: id});
   
-  var mongoose = require('mongoose');
-  var schema = require('./schema');
+  // var mongoose = require('mongoose');
+  // var schema = require('./schema');
   
   // instantiate mongoose model inside function
-  var Term = mongoose.model('Term', schema, 'terms');
+  // var Term = mongoose.model('Term', schema, 'terms');
   
   // turn examples argument into an array, separated by newlines (non-inclusive)
   var lnRegExp = /\r?\n|\r/;
-  oldExamples = oldExamples.split(lnRegExp);
-  newExamples = newExamples.split(lnRegExp);
+  examples = examples.split(lnRegExp);
+  // newExamples = newExamples.split(lnRegExp);
   
 
   // now we rebuild options into the proper schema format, like so:
@@ -340,21 +345,26 @@ function updateTerm(creator, term, definition, examples, id){
     examplesArr.push(obj);
   }
 
-  // create term instance to be inserted into collection
-  var term = new Term({
+  /* create term instance to be inserted into collection
+  var newTerm = new Term({
     creator: creator,
     term: term,
     definition: definition,
     examples: examplesArr
   });
-  
+  */
     // create terms collection as soon as first document is inserted
     db.collection('vocab', function(err, collection) {if (err) throw err});
 
     // find this term's _id value
 
     // update term using term's _id value, then close database
-    db.collection('vocab').insertOne(term);
+    db.collection('vocab').updateOne(
+   { _id: id },
+   {
+     $set: { "term": term, "definition": definition, "examples": examplesArr }
+   }
+);
 }
 
 module.exports = app;
