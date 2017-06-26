@@ -69,6 +69,8 @@ var db;
   db = database;
 });
 
+var singleTermRouter = require('./routes/singleTerm');
+app.use('/:term', singleTermRouter);
 
 
 app.get('/', function(req, res, next) {
@@ -253,8 +255,11 @@ app.post('/:term', function(req, res, next){
         
       });
 
-  
-  updateTerm(req.user.id, req.params.term, req.params.definition, req.params.examples, termID);
+  var term = req.body.term;
+  var definition = req.body.definition;
+  var examples = req.body.examples;
+  var creator = req.user.id;
+  updateTerm(creator, term, definition, examples, termID);
 });
 
 // catch 404 and forward to error handler
@@ -318,12 +323,9 @@ function createTerm(creator, term, definition, examples){
 function updateTerm(creator, term, definition, examples, id){
   
   // db call to check if new params match the old params
-  
   // var oldTerm = db.collection('vocab').find({_id: id});
-  
   // var mongoose = require('mongoose');
   // var schema = require('./schema');
-  
   // instantiate mongoose model inside function
   // var Term = mongoose.model('Term', schema, 'terms');
   
