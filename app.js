@@ -72,6 +72,7 @@ var db;
 
 
 app.get('/', function(req, res, next) {
+
   
   // create terms collection as soon as first document is inserted
   db.collection('vocab', function(err, collection) {if (err) throw err});

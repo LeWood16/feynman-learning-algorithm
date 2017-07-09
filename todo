@@ -6,7 +6,8 @@ monolithic express app
 
 
 Features:
-
+- make a route for dbConnection, and pass that to the routes that need it
+- make a route completely modular, with the router class
 
 
 - able to click on a term, and be taken to a page with options for 
