@@ -16,7 +16,15 @@
   </h3>
 
   </li>
-  <button id="edit" class="btn btn-success">Edit</button>
+
+ 
+ 
+<p>
+  <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Edit</button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-block">
+  
   <form class="jumbotron container-fluid" method="post">
   <div class="form-group">
     <label for="exampleTextarea">Term</label>
@@ -34,8 +42,19 @@
     {{/examples}}
     </textarea>
   </div>
-  <button type="submit" class="btn btn-success">Update</button>
+  <button type="submit" class="btn btn-primary">Change Term</button>
+  <button class="btn btn-danger" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Cancel</button>
 </form>
+  
+  </div>
+</div>
+  
+ 
+ 
+ 
+ 
+ 
+
 </ul>
 
 {{/terms}}
@@ -46,8 +65,8 @@
 
 
 </div>
-<script>
-</script>
+
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+
 </body>
